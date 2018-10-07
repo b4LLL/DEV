@@ -1,13 +1,21 @@
 let express = require('express')
 let request = require('request')
 let querystring = require('querystring')
-
+//https://expressjs.com/en/api.html#app
+//https://expressjs.com/en/api.html#express
 let app = express()
 
 let redirect_uri = 
   process.env.REDIRECT_URI || 
   'http://localhost:8888/callback'
 
+/*
+.get is the HTTP method for which the middleware function applies
+'/login'  is the route function() is the middleware function
+'req'     is the request argument to the middleware function
+'res'     is the response argument to the middleware function
+https://expressjs.com/en/api.html#req
+*/
 app.get('/login', function(req, res) {
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
@@ -42,5 +50,5 @@ app.get('/callback', function(req, res) {
 })
 
 let port = process.env.PORT || 8888
-console.log(`Listening on port ${port}. Go /login to initiate authentication flow.`)
+console.log('Listening on port ${port}. Go /login to initiate authentication flow.')
 app.listen(port)
