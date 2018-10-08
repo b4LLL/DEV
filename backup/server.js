@@ -21,7 +21,7 @@ app.get('/login', function(req, res) {
     querystring.stringify({
       response_type: 'code',
       client_id: process.env.SPOTIFY_CLIENT_ID,
-      scope: 'user-read-private user-read-email user-read-playback-state user-read-recently-played',
+      scope: 'user-read-private user-read-email',
       redirect_uri
     }))
 })
@@ -36,7 +36,7 @@ app.get('/callback', function(req, res) {
       grant_type: 'authorization_code'
     },
     headers: {
-      'Authorization': 'Basic ' + (new Buffer.from(
+      'Authorization': 'Basic ' + (new Buffer(
         process.env.SPOTIFY_CLIENT_ID + ':' + process.env.SPOTIFY_CLIENT_SECRET
       ).toString('base64'))
     },
@@ -47,8 +47,8 @@ app.get('/callback', function(req, res) {
     let uri = process.env.FRONTEND_URI || 'http://localhost:3000'
     res.redirect(uri + '?access_token=' + access_token)
   })
-})
+})// this puts the token inside the URI which can be extracted on localhost:3000
 
 let port = process.env.PORT || 8888
-console.log('Listening on port: ' + port + ' Go to: http://localhost:8888/login')
+console.log('Listening on port ${port}. Go /login to initiate authentication flow.')
 app.listen(port)
