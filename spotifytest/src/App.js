@@ -8,12 +8,6 @@ let accessToken = parsed.access_token;
 
 console.log(`parsed: ${accessToken}`); //for printing variables inline use ``
 
-/*fetch(url, options).then(function(response)){
-  //handle HTTP response
-}, function(error) {
-
-};
-*/
 fetch('https://api.spotify.com/v1/me/player/recently-played', 
   {headers:{'Authorization': 'Bearer ' + accessToken}})
   .then(response => response.json())
