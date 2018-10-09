@@ -21,8 +21,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <p>
-            {accessToken}   
-              
+            {accessToken}       
           </p>
         </header>
       </div>
