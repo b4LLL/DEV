@@ -8,7 +8,7 @@ import queryString from 'query-string';
 let parsed = queryString.parse(window.location.search);
 let accessToken = parsed.access_token;
 
-fetch('https://api.spotify.com/v1/me', 
+fetch('https://api.spotify.com/v1/me/player/devices', 
   {headers:{'Authorization': 'Bearer ' + accessToken}})
   .then(response => response.json())
   .then(data => console.log(data))
