@@ -21,7 +21,8 @@ app.get('/login', function(req, res) {
     querystring.stringify({
       response_type: 'code',
       client_id: process.env.SPOTIFY_CLIENT_ID,
-      scope: 'user-read-private user-read-email user-read-playback-state user-read-recently-played',
+      //scope: 'user-read-private user-read-email user-read-playback-state user-read-recently-played',
+      scope: 'streaming user-read-birthdate user-read-email user-read-private',
       redirect_uri
     }))
 })
