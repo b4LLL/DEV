@@ -8,6 +8,8 @@
 
 # production
 /build
+logo.svg
+app.test.js
 
 # misc
 .DS_Store
