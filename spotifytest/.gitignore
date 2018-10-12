@@ -10,7 +10,8 @@
 /build
 logo.svg
 app.test.js
-
+index.css
+serviceWorker.js
 # misc
 .DS_Store
 .env.local
