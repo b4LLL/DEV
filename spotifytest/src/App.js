@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import queryString from 'query-string';
 //import { stringify } from 'querystring';
 class App extends Component {
@@ -21,7 +21,7 @@ class App extends Component {
   }
   render() {
     return (
-        `Token is now : ${this.state.token}`
+        <span> Token is now : {this.state.token}</span>
     );
   }
 }

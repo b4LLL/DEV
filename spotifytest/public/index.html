@@ -11,7 +11,7 @@
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-    <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    <!--<script src="https://sdk.scdn.co/spotify-player.js"></script>-->
     <title>Spotify Test</title>
 
   </head>
@@ -20,25 +20,15 @@
       You need to enable JavaScript to run this app.
     </noscript>
 
-    <div class="container">
+    <div class="container-fluid">
       <div class="row">
-
-        <div class="col" id="root">
-          
+        <div class="col-sm-default" id="root">
         </div>
-        <div class="col">
-            Hello
-          </div>
+        <div class="col-sm-default">
+            <iframe src="https://open.spotify.com/embed/album/1DFixLWuPkv3KT3TnV35m3" width="300" height="380" frameBorder ="0" allowtransparency="true" allow="encrypted-media" title="Spotify Player">Spotify Player</iframe>
+        </div>
       </div>
     </div>
-    <div class="container">
-      <div class="col">
-          <iframe src="https://open.spotify.com/embed/album/1DFixLWuPkv3KT3TnV35m3" width="300" height="380" frameBorder ="0" allowtransparency="true" allow="encrypted-media" title="Spotify Player">Spotify Player</iframe>
-          <form>
-            <input type="text" name="search" placeholder="Search Spotify">
-          </form>
-        </div>
-    </div>
-
+    <div id="search"></div>
   </body>
 </html>
