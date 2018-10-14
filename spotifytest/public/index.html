@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#000000">
     <!--
@@ -10,16 +11,13 @@
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-    
-    <title>React App</title>
+    <title>Spotify Test</title>
     <script src="https://sdk.scdn.co/spotify-player.js"></script>
-    
   </head>
   <body>
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
-    <iframe src="https://open.spotify.com/embed/album/1DFixLWuPkv3KT3TnV35m3" width="300" height="380" frameBorder ="0" allowtransparency="true" allow="encrypted-media" title="Spotify Player">Spotify Player</iframe>
     <script>
       window.onSpotifyWebPlaybackSDKReady = () => {
         //You can now initialize Spotify.Player and use the SDK
@@ -32,7 +30,24 @@
         // Error handling removed
       };
     </script> 
-    <div id="root"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <iframe src="https://open.spotify.com/embed/album/1DFixLWuPkv3KT3TnV35m3" width="300" height="380" frameBorder ="0" allowtransparency="true" allow="encrypted-media" title="Spotify Player">Spotify Player</iframe>
+          <form>
+            <input type="text" name="search" placeholder="Search Spotify">
+          </form>
+        </div>
+        <div class="col" id="root">
+        </div>
+      </div>
+    </div>
+    <div class="container">
+
+    </div>
+
+
+    </div>
         
   </body>
 </html>

@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
-
 import queryString from 'query-string';
 
 
@@ -18,13 +16,9 @@ class App extends Component {
   
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <p>
-            {accessToken}       
-          </p>
-        </header>
-      </div>
+      <p>
+        {accessToken}
+      </p>
     );
   }
 }
