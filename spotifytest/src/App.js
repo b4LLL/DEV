@@ -21,7 +21,9 @@ class App extends Component {
   }
   render() {
     return (
-        <span> Token is now : {this.state.token}</span>
+      <p>
+        Token is now : {this.state.token}
+      </p>
     );
   }
 }

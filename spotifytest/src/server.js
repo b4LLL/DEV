@@ -1,8 +1,6 @@
 let express = require('express')
 let request = require('request')
 let querystring = require('querystring')
-//https://expressjs.com/en/api.html#app
-//https://expressjs.com/en/api.html#express
 let app = express()
 
 let redirect_uri = 
