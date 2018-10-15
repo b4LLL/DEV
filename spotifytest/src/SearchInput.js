@@ -11,11 +11,14 @@ export default class SearchInput extends Component {
     }
     handleSearch(e){
         this.setState({searchInput: e.target.value});
+        if(e.key === 'Enter'){
+            console.log('submitted');
+        }
     }
     render(){
         return(
             <div>
-                <input type="text" placeholder="" onChange={this.handleSearch}></input>
+                <input type="search" placeholder="Search" onKeyPress={this.handleSearch}/>   
                 <SearchResult list={this.state.searchInput} />
             </div>
         );
@@ -23,16 +26,15 @@ export default class SearchInput extends Component {
 }
 
 export class SearchResult extends Component {
-    constructor(props){
+    /*constructor(props){
         super(props);
         this.state = {
             list: this.props.list
-        };
-        console.log(`state : ${this.state.list}`);
-    }
+        }
+    }*/
     render(){
         return(
-            <b>Text : {this.state.list}</b>
+            <div>{this.props.list}</div>
         );
     }
 }
