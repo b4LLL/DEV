@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-class SearchInput extends Component {
+export default class SearchInput extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -9,37 +9,31 @@ class SearchInput extends Component {
         };
         this.handleSearch = this.handleSearch.bind(this);
     }
-
     handleSearch(e){
         this.setState({searchInput: e.target.value});
     }
-    
     render(){
         return(
             <div>
                 <input type="text" placeholder="" onChange={this.handleSearch}></input>
                 <SearchResult list={this.state.searchInput} />
-                {console.log(this.state.searchInput)}
             </div>
         );
     }
 }
 
-class SearchResult extends Component {
+export class SearchResult extends Component {
     constructor(props){
         super(props);
         this.state = {
-            list: this.props.searchInput
+            list: this.props.list
         };
+        console.log(`state : ${this.state.list}`);
     }
     render(){
         return(
-            <div>
-                Text : {this.props.list}
-                {console.log(`now in SearchResult ${this.props.list}`)}
-            </div>
+            <b>Text : {this.state.list}</b>
         );
     }
 }
 
-export default SearchInput;
