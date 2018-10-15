@@ -4,26 +4,22 @@ class SearchInput extends Component {
     constructor(props){
         super(props);
         this.state = {
-            searchInput: 'searchInput',
+            searchInput: '',
             searchURL: '',
         };
         this.handleSearch = this.handleSearch.bind(this);
-        this.listResults = this.listResults.bind(this);
     }
 
-    handleSearch(){
-        console.log('now in handleSearch');
+    handleSearch(e){
+        this.setState({searchInput: e.target.value});
     }
-
-    listResults(){
-
-    }
-
+    
     render(){
         return(
             <div>
-                <SearchInput />
-                <SearchResult />
+                <input type="text" placeholder="" onChange={this.handleSearch}></input>
+                <SearchResult list={this.state.searchInput} />
+                {console.log(this.state.searchInput)}
             </div>
         );
     }
@@ -32,11 +28,16 @@ class SearchInput extends Component {
 class SearchResult extends Component {
     constructor(props){
         super(props);
-        console.log(props);
+        this.state = {
+            list: this.props.searchInput
+        };
     }
     render(){
         return(
-            <div>Something</div>
+            <div>
+                Text : {this.props.list}
+                {console.log(`now in SearchResult ${this.props.list}`)}
+            </div>
         );
     }
 }
