@@ -4,34 +4,35 @@ export default class SearchInput extends Component {
     constructor(props){
         super(props);
         this.state = {
-            searchInput: '',
-            searchURL: '',
+            searchInput: 'Empty'
         };
         this.handleSearch = this.handleSearch.bind(this);
     }
     handleSearch(e){
-        this.setState({searchInput: e.target.value});
         if(e.key === 'Enter'){
-            console.log('submitted');
+            this.setState({searchInput: e.target.value});
+
         }
-    }
+    }    
     render(){
         return(
             <div>
-                <input type="search" placeholder="Search" onKeyPress={this.handleSearch}/>   
+                <input type="text" placeholder="Search" onKeyPress={this.handleSearch}/>   
                 <SearchResult list={this.state.searchInput} />
+                {console.log(this.state.searchInput)}
             </div>
         );
     }
+
 }
 
 export class SearchResult extends Component {
-    /*constructor(props){
+    constructor(props){
         super(props);
         this.state = {
-            list: this.props.list
+            list: ''
         }
-    }*/
+    }
     render(){
         return(
             <div>{this.props.list}</div>
