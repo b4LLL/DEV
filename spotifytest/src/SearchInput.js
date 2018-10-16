@@ -20,6 +20,12 @@ export default class SearchInput extends Component {
                 .then(data => console.log(data))
                 this.ResultDisplay()
         }
+    }
+    handleCheck(e){
+        console.log(e.name);
+    }
+    ResultDisplay() {
+        // <SearchFunction input={this.state.query} token={this.props.token} />
     } 
     render(){
         let spotifyQueryReq = [
@@ -29,15 +35,21 @@ export default class SearchInput extends Component {
             { name: "checkPlaylist", id: "Playlist", value: "Playlist"}, 
         ];
         return(
-            <div id="searchParams">
-                <input name="search box" type="text" placeholder="Search Spotify" onKeyPress={this.handleSearch}/>
-                {spotifyQueryReq.map((e) => 
-                    <label>{e.value}<input key={parseInt(e.name)} type="checkbox" name={e.name} id={e.id} value={e.value}/></label>)}
-            </div>    
+            <div className="container">
+                <div id="searchParams">
+                    <input name="search box" type="text" placeholder="Search Spotify" onKeyPress={this.handleSearch}/>
+                    {spotifyQueryReq.map((e) => 
+                    <div>
+                        <label  key={e.id}>{e.value}
+                        <input  key={parseInt(e.name)} 
+                                type="checkbox" name={e.name} 
+                                id={e.id} value={e.value} 
+                                onChange={console.log(e.value)}/>
+                        </label>
+                    </div>)}
+                </div>
+            </div>
         );
     }
-    ResultDisplay() {
-    // <SearchFunction input={this.state.query} token={this.props.token} />
-    }
 }
-ReactDOM.render(<SearchInput />,document.getElementById("search"))
+ReactDOM.render(<SearchInput />, document.getElementById("search"))

@@ -5,7 +5,6 @@
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="theme-color" content="#000000">
     <!--
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
@@ -18,16 +17,21 @@
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-default" id="root">
+    <div class="container">
+      <div class="row" style="background-color:black">
+        <div class="col-4" id="search" style="background-color: aquamarine">
         </div>
-        <div class="col-sm-default">
-            <iframe src="https://open.spotify.com/embed/album/1DFixLWuPkv3KT3TnV35m3" width="300" height="380" frameBorder ="0" allowtransparency="true" allow="encrypted-media" title="Spotify Player">Spotify Player</iframe>
+        <div class="col-4" style="background-color: rgb(255, 0, 0)">
+          <iframe src="https://open.spotify.com/embed/album/1DFixLWuPkv3KT3TnV35m3" width="300" height="380" frameBorder ="0" allowtransparency="true" allow="encrypted-media" title="Spotify Player">Spotify Player</iframe>
+        </div>
+        <div class="col-4" id="root" style="background-color: blueviolet">
+        </div>
+
+      </div>
+      <div class="row" style="background-color:black">
+        <div class="col-4" style="background-color: darkorange" id="results">
         </div>
       </div>
     </div>
-    <div id="search"></div>
-    <div id="results"></div>
   </body>
 </html>
