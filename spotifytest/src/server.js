@@ -3,9 +3,7 @@ let request = require('request')
 let querystring = require('querystring')
 let app = express()
 
-let redirect_uri = 
-  process.env.REDIRECT_URI || 
-  'http://localhost:8888/callback'
+let redirect_uri = process.env.REDIRECT_URI || 'http://localhost:8888/callback'
 
 /*
 .get is the HTTP method for which the middleware function applies

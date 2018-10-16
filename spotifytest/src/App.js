@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import queryString from 'query-string';
+import ReactDOM from 'react-dom';
 
+//
+//  Use this App as the content loader -> 
+//  user playlists, community playlists etc
+//      
 class App extends Component {
   constructor(props){
     super(props);
@@ -11,20 +16,13 @@ class App extends Component {
   componentDidMount(){
     let parsed = queryString.parse(window.location.search);
     let accessToken = parsed.access_token;
-    fetch('https://api.spotify.com/v1/me', 
-      {headers:{'Authorization': 'Bearer ' + accessToken}})
-      .then(response => response.json())
-      .then(data => console.log(data))
-    //localStorage.setItem('token',accessToken);
-    this.setState({token: accessToken});
+    this.setState({token: accessToken}); //works
+    localStorage.setItem('token', accessToken);
   }
   render() {
-    return (
-      <p>
-        Token is now : {this.state.token}
-      </p>
-    );
+    return (null)
   }
 }
+ReactDOM.render(<App />, document.getElementById("root"))
 
 export default App;
