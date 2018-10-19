@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-
+import { ListGroupItem, Checkbox, Label } from 'react-bootstrap'
 export default class SearchInput extends Component {
     constructor(props){
         super(props);
@@ -16,9 +16,9 @@ export default class SearchInput extends Component {
             this.setState({query: encodeURIComponent(e.target.value.trim())}, () => {
                 console.log(this.state.query)
                 fetch('https://api.spotify.com/v1/search?q=' + this.state.query +'&type=track', 
-                {headers:{'Authorization': 'Bearer ' + this.state.token}})
-                .then(response => response.json())
-                .then(data => console.log(data))
+                    {headers:{'Authorization': 'Bearer ' + this.state.token}})
+                    .then(response => response.json())
+                    .then(data => console.log(data))
             })
             for (let i = 0; i < SQ.length; i++){
                 if(document.getElementById(SQ[i].id).checked === true)
@@ -31,7 +31,7 @@ export default class SearchInput extends Component {
         return(
             <div>
                 <iframe src="https://open.spotify.com/embed/track/0nLiqZ6A27jJri2VCalIUs" width="300" height="380" frameBorder ="0" allowtransparency="true" allow="encrypted-media" title="Spotify Player">Spotify Player</iframe>
-                <input name="search box" type="text" placeholder="Search Spotify" onKeyPress={this.handleSearch}/>
+                <input name="search box" type="text" placeholder="Search Spotify" onKeyPress={this.handleSearch}/>                
             </div>
             
         );
@@ -40,14 +40,11 @@ export default class SearchInput extends Component {
 
 function ShowList(props){
     const ListOptions = (
-        <div>
-            {SQ.map((object) => 
-                <li key={object.value} className="list-group">
-                    {' '+ object.id}
-                    <input type="checkbox" key={object.value.toString()} id={object.id} />
-                </li>
-            )}
-        </div>
+            SQ.map((object) => (
+                <ListGroupItem key={object.value} className="list-group">
+                    <Label>{object.id} <Checkbox key={object.value.toString()} id={object.id}/></Label>
+                </ListGroupItem>) //replace this with https://react-bootstrap.github.io/components/button-group/#btn-groups-toggle-group-props
+            )
     );
     return(
         <b>
