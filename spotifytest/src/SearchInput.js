@@ -12,24 +12,28 @@ export default class SearchInput extends Component {
     }
 
     handleSearch(e){
-        let nodeList = [];
         if(e.key === 'Enter'){
-            this.setState({query: encodeURIComponent(e.target.value.trim())});
-            fetch('https://api.spotify.com/v1/search?q=name:' + this.state.query, 
+            this.setState({query: encodeURIComponent(e.target.value.trim())}, () => {
+                console.log(this.state.query)
+                fetch('https://api.spotify.com/v1/search?q=' + this.state.query +'&type=track', 
                 {headers:{'Authorization': 'Bearer ' + this.state.token}})
                 .then(response => response.json())
                 .then(data => console.log(data))
+            })
             for (let i = 0; i < SQ.length; i++){
-                if(document.getElementById(SQ[i].id).checked === true){
+                if(document.getElementById(SQ[i].id).checked === true)
                     console.log(SQ[i].value)
-                }
             }
         }
     }
 
     render(){
         return(
-            <input name="search box" type="text" placeholder="Search Spotify" onKeyPress={this.handleSearch}/>
+            <div>
+                <iframe src="https://open.spotify.com/embed/track/0nLiqZ6A27jJri2VCalIUs" width="300" height="380" frameBorder ="0" allowtransparency="true" allow="encrypted-media" title="Spotify Player">Spotify Player</iframe>
+                <input name="search box" type="text" placeholder="Search Spotify" onKeyPress={this.handleSearch}/>
+            </div>
+            
         );
     }
 }
@@ -38,17 +42,17 @@ function ShowList(props){
     const ListOptions = (
         <div>
             {SQ.map((object) => 
-                <li key={object.value}>
-                    <input type="checkbox" key={object.value.toString()} id={object.id} />
+                <li key={object.value} className="list-group">
                     {' '+ object.id}
+                    <input type="checkbox" key={object.value.toString()} id={object.id} />
                 </li>
             )}
         </div>
     );
     return(
-        <div>
+        <b>
             {ListOptions}
-        </div>
+        </b>
     );
 }
 
