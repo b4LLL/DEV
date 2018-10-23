@@ -1,19 +1,20 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import { ListGroupItem, Checkbox, Label } from 'react-bootstrap'
+import ResultsDisplay from './ResultsDisplay'
+import { ListGroupItem, Checkbox, Label, ToggleButtonGroup, ToggleButton, ButtonToolbar } from 'react-bootstrap'
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+
 export default class SearchInput extends Component {
     constructor(props){
         super(props);
         this.state = {
             query: '',
             token: localStorage.getItem('token'),
-            result: '',                //needs to be moved to server session
-            SQ: [
-                { id: "Track", value: "track"},
+            result: '', //needs to be moved to server session
+            SQ: [{ id: "Track", value: "track"},
                 { id: "Artist", value: "artist"},
                 { id: "Album", value: "album"},
-                { id: "Playlist", value: "playlist"}, 
-            ]
+                { id: "Playlist", value: "playlist"}]
         };
         this.handleSearch = this.handleSearch.bind(this);
     }
@@ -34,18 +35,14 @@ export default class SearchInput extends Component {
                         {headers:{'Authorization': 'Bearer ' + this.state.token}})
                         .then(response => response.json())
                         .then(data => {
-                            console.log(data + data.tracks.items[0].id)
-                            /*  process the data response here:
-                                https://developer.mozilla.org/en-US/docs/Web/API/Body/json
-                                send the json object to another class to display
-                                can probably render it at the bottom <ShowResults data={processedObject} />
-                                example if track search:    data.tracks.items[{}].type
-                                                            data.tracks.items[{}].id
-                            */
+                            console.log(data)
+                            ReactDOM.render(<ResultsDisplay typeArray={typeArray} data={data}/>, document.getElementById("type-1"))
                         })
                     }
                 )
-            } else ((e.target.value === '') ? alert("Please enter a Spotify search query") : alert("Please select what type of search to perform"))
+            } else ((e.target.value === '') 
+            ? alert("Please enter a Spotify search query") 
+            : alert("Please select what type of search to perform"))
         }
     }
     render(){
@@ -54,14 +51,22 @@ export default class SearchInput extends Component {
             this.state.SQ.map((object) => (
                 <ListGroupItem key={object.value} className="list-group">
                     <Label>{object.id} <Checkbox key={object.value.toString()} id={object.id} defaultChecked={(object.id === "Track") ? true : checkVal}/></Label>
-                </ListGroupItem>)
+                </ListGroupItem>
             )
+        ));
+        const InputField = (
+            <div className="input-group mb-3">
+                <div className="input-group-prepend">
+                    <span className="input-group-text" id="inputGroup-sizing-default">Search Spotify</span>
+                </div>
+                <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" onKeyPress={this.handleSearch}/>
+            </div>
         );
         return(
             <div>
-                <input name="search box" type="text" placeholder="Search Spotify" onKeyPress={this.handleSearch}/>
+                {InputField}
                 {ListOptions}                
-                <iframe src="https://open.spotify.com/embed/album/6lrm01OVZZVmarH2XLSAXZ" width="300" height="380" frameBorder ="0" allowtransparency="true" allow="encrypted-media" title="Spotify Player">Spotify Player</iframe>
+                <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DXbj9Ksq4BAdj" width="300" height="380" frameBorder ="0" allowtransparency="true" allow="encrypted-media" title="Spotify Player">Spotify Player</iframe>
             </div>
         );
     }
