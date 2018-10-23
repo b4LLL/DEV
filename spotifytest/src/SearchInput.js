@@ -50,7 +50,7 @@ export default class SearchInput extends Component {
         const ListOptions = (
             this.state.SQ.map((object) => (
                 <ListGroupItem key={object.value} className="list-group">
-                    <Label>{object.id} <Checkbox key={object.value.toString()} id={object.id} defaultChecked={(object.id === "Track") ? true : checkVal}/></Label>
+                    <Checkbox key={object.value.toString()} id={object.id} defaultChecked={(object.id === "Track") ? true : checkVal}/> <span>{object.id} </span>
                 </ListGroupItem>
             )
         ));
