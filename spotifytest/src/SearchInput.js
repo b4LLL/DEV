@@ -11,9 +11,9 @@ export default class SearchInput extends Component {
             query: '',
             token: localStorage.getItem('token'),
             result: '', //needs to be moved to server session
-            SQ: [{ id: "Track", value: "track"},
+            SQ: [{ id: "Album", value: "album"},
                 { id: "Artist", value: "artist"},
-                { id: "Album", value: "album"},
+                { id: "Track", value: "track"} ,
                 { id: "Playlist", value: "playlist"}]
         };
         this.handleSearch = this.handleSearch.bind(this);
