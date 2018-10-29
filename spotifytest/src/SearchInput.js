@@ -31,7 +31,7 @@ export default class SearchInput extends Component {
             }
             if((checkedCount !== 0) && (e.target.value !== '')){
                 this.setState({query: encodeURIComponent(e.target.value.trim())}, () => {
-                    fetch('https://api.spotify.com/v1/search?q=' + this.state.query +'&type=' + typeArray.toString() + '&limit=2', 
+                    fetch('https://api.spotify.com/v1/search?q=' + this.state.query +'&type=' + typeArray.toString() + '&limit=1', 
                         {headers:{'Authorization': 'Bearer ' + this.state.token}})
                         .then(response => response.json())
                         .then(data => {
