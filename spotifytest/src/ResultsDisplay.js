@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+//import ReactDOM from 'react-dom';
 
 export default class ResultsDisplay extends Component {
     constructor(props){
@@ -10,47 +11,86 @@ export default class ResultsDisplay extends Component {
         this.paginationAPIcall = this.paginationAPIcall.bind(this);
         this.itemArrayCheck = this.itemArrayCheck.bind(this);
         this.itemAlbumCheck = this.itemAlbumCheck.bind(this);
-        this.itemAlbumImageCheck = this.itemAlbumImageCheck.bind(this);
+        this.itemImageCheck = this.itemImageCheck.bind(this);
         this.itemArtistsCheck = this.itemArtistsCheck.bind(this);
+        this.itemFollowersCheck = this.itemFollowersCheck.bind(this);
+        this.itemGenresCheck = this.itemGenresCheck.bind(this);
     }
 
-    itemArrayCheck(object){     // iterate through the items
+    itemArrayCheck(object){     // iterate through the first set items
         for(let itemIndex in object){
             console.log('Item index ' + itemIndex + ' -> name -> ' + object[itemIndex].name)
             console.log('Item index ' + itemIndex + ' -> type -> ' + object[itemIndex].type)
             console.log('Item index ' + itemIndex + ' -> id -> ' + object[itemIndex].id)
-            this.itemArtistsCheck(object[itemIndex].artists)
-            this.itemAlbumCheck(object[itemIndex].album)
-            this.itemAlbumImageCheck(object[itemIndex].album.images)
         }
     }
 
-    itemAlbumCheck(object){
-        console.log('album name -> ' + object.name)
-        console.log('album type -> ' + object.type)
-        console.log('album id -> ' + object.id)
-        console.log('album type (single etc)-> ' + object.album_type)
+    itemAlbumCheck(object, trackFlag){
+        if(trackFlag){
+            for(let itemIndex in object){
+                console.log(object[itemIndex].album.name)
+                console.log(object[itemIndex].album.type)
+                console.log(object[itemIndex].album.id)
+            }
+        }else{
+            for(let itemIndex in object){
+                for(let albumIndex in object[itemIndex].albums){
+                    console.log(object[itemIndex].albums[albumIndex].name)
+                    console.log(object[itemIndex].albums[albumIndex].type)
+                    console.log(object[itemIndex].albums[albumIndex].id)
+                }
+            }
+        }
     }
 
-    itemAlbumImageCheck(object){ // 0 -> n is largest to smallest resolution
-        for(let imageIndex in object){
-            console.log('Image ' + imageIndex + ' -> height -> ' + object[imageIndex].height)
-            console.log('Image ' + imageIndex + ' -> width -> ' + object[imageIndex].width)
-            console.log('Image ' + imageIndex + ' -> url -> ' + object[imageIndex].url)
+    itemImageCheck(object, trackFlag){ // 0 -> n is largest to smallest resolution
+        if(trackFlag){
+            for(let itemIndex in object){
+                for(let imageIndex in object[itemIndex].album.images){
+                    console.log(object[itemIndex].album.images[imageIndex].height)
+                    console.log(object[itemIndex].album.images[imageIndex].width)
+                    console.log(object[itemIndex].album.images[imageIndex].url)
+                }
+            }
+        }else{
+            for(let itemIndex in object){
+                for(let imageIndex in object[itemIndex].images){
+                    console.log(object[itemIndex].images[imageIndex].height)
+                    console.log(object[itemIndex].images[imageIndex].width)
+                    console.log(object[itemIndex].images[imageIndex].url)
+                }
+            }
         }
+            
     }
 
     itemArtistsCheck(object){
-        for (let artistIndex in object){
-            console.log('artists index -> ' + artistIndex + ' -> name -> '+ object[artistIndex].name)
-            console.log('artists index -> ' + artistIndex + ' -> type -> '+ object[artistIndex].type)
-            console.log('artists index -> ' + artistIndex + ' -> id -> '+ object[artistIndex].id)
+        for(let itemIndex in object){
+            for(let artistIndex in object[itemIndex].artists){
+                console.log(object[itemIndex].artists[artistIndex].name)
+                console.log(object[itemIndex].artists[artistIndex].type)
+                console.log(object[itemIndex].artists[artistIndex].id)
+            }
+        }
+    }
+
+    itemFollowersCheck(object){
+        for(let itemIndex in object){
+            console.log(object[itemIndex].followers.total)
+        }
+    }
+
+    itemGenresCheck(object){
+        for(let itemIndex in object){
+            object[itemIndex].genres.forEach(element => {
+                console.log(element)    
+            });
         }
     }
 
     paginationAPIcall(object){
-        for (var searchType in object){ //first loop to scan through each searchType presented
-            for(let apiIndex in object[searchType]){ //then check what each searchType array API calls now are
+        for (var searchType in object){                 //first loop to scan through each searchType presented
+            for(let apiIndex in object[searchType]){    //then check what each searchType array API calls now are
                 switch(apiIndex){                                       
                     case (apiIndex = 'next'):
                         console.log(searchType + ' -> ' + apiIndex + ' -> ' + object[searchType][apiIndex])
@@ -65,7 +105,30 @@ export default class ResultsDisplay extends Component {
                     //add the API values for each search type to an array that can be processed (like the checkboxes) EZ Clep
                 }
             }
-            this.itemArrayCheck(object[searchType].items)
+            switch(searchType){
+                case (searchType = 'albums'):
+                    this.itemArrayCheck(object[searchType].items)
+                    this.itemArtistsCheck(object[searchType].items)
+                    this.itemImageCheck(object[searchType].items)
+                break;
+                case (searchType = 'artists'):
+                    this.itemArrayCheck(object[searchType].items)
+                    this.itemImageCheck(object[searchType].items)
+                    this.itemFollowersCheck(object[searchType].items)
+                    this.itemGenresCheck(object[searchType].items)
+                break;
+                case (searchType = 'tracks'):
+                    this.itemArrayCheck(object[searchType].items)
+                    this.itemAlbumCheck(object[searchType].items, true) //give true to check different naming scheme in object
+                    this.itemImageCheck(object[searchType].items, true)
+
+                break;
+                case (searchType = 'playlists'):
+                    this.itemArrayCheck(object[searchType].items)
+                    this.itemImageCheck(object[searchType].items)
+                break;
+                default:
+            }
         }        
     }
 
@@ -73,7 +136,7 @@ export default class ResultsDisplay extends Component {
         this.paginationAPIcall(this.props.data)
     return(
         <div>
-            this.props.typeArray + this.props.data.tracks.items
+            
         </div>
         );
     }
