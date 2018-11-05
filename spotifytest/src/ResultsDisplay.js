@@ -92,7 +92,6 @@ export default class ResultsDisplay extends Component {
                 id:object[itemIndex].id,
                 images:Object.values(object[itemIndex].images),
                 total:object[itemIndex].tracks.total
-
             }
         }
         return(playlistObj)        

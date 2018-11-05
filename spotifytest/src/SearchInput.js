@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import ResultsDisplay from './ResultsDisplay'
-import { ListGroupItem, Checkbox, Label, ToggleButtonGroup, ToggleButton, ButtonToolbar } from 'react-bootstrap'
+import { ListGroupItem, Checkbox } from 'react-bootstrap'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 export default class SearchInput extends Component {
