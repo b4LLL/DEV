@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 export default class AlbumClass extends Component {
     constructor(props){
         super(props);
-        this.albumArray = []
         this.APIref = {
             previous: URL || null,
             next: URL || null,
@@ -17,48 +17,42 @@ export default class AlbumClass extends Component {
         this.APIref.previous = object.previous
         this.APIref.next = object.next
         this.APIref.total = object.total
+        this.albumDisplayArray.push(this.APIref)
     }
 
     loadEachItem(object){
-        var Artists = []
-        var Images = []
-        for(let itemIndex in object){
-            this.albumArray.push({
-                name:object[itemIndex].name,
-                id:object[itemIndex].id,
-                type:object[itemIndex].type
+        let albums = []
+        console.log(object)
+        for (let itemIndex in object){
+            albums.push({
+                nameAlbum:   object[itemIndex].name,
+                typeAlbum:   object[itemIndex].type,
+                idAlbum:     object[itemIndex].id,
+                height:     object[itemIndex].images[1].height,
+                width:      object[itemIndex].images[1].width,
+                url:        object[itemIndex].images[1].url,
+                nameArtist:   object[itemIndex].artists[0].name,
+                typeArtist:   object[itemIndex].artists[0].type,
+                idArtist:     object[itemIndex].artists[0].id
             })
-            for(let imageIndex in object[itemIndex].images){
-                Images.push({
-                    height: object[itemIndex].images[imageIndex].height,
-                    width: object[itemIndex].images[imageIndex].width,
-                    url: object[itemIndex].images[imageIndex].url
-                })
-            }
-            for(let artistIndex in object[itemIndex].artists){
-                Artists.push({
-                    name: object[itemIndex].artists[artistIndex],
-                    id: object[itemIndex].artists[artistIndex],
-                    type: object[itemIndex].artists[artistIndex]
-                })
-            }
-            this.albumArray.push(Artists)
-            this.albumArray.push(Images)
         }
-        console.log(this.albumArray)
+        const albumResults = (
+            albums.map(object => (
+                
+            ))
+        )
+        return albumResults
     }
     
     componentDidMount(){
-        this.loadEachItem(this.props.albumObject.items)
         this.loadAPIref(this.props.albumObject.APIrefs)
-        console.log(this.props.albumObject.items)
+        this.loadEachItem(this.props.albumObject.items)
     }
     
     render(){
-   
-    return(
-        <div>
-            
-        </div>);
+        return(
+            {albumResults}
+        )
     }
 }
+
