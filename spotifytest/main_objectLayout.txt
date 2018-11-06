@@ -1,0 +1,68 @@
+	For each case
+	send the data to its unique class
+	
+	class
+		- list of type results
+			each function returns an array
+			
+		- fetch request based on the next/previous api query
+			api index
+			render ResultsDisplay.js using same method in SearchInput
+		
+
+albums 
+	APIrefs	
+	ITEM[{}]
+		artists[{}]
+			name
+			type
+			id
+		images[{}]
+			height
+			width
+			url
+		name
+		type
+		id
+
+		
+		
+		
+artist 
+	APIrefs
+	ITEM[{}]
+		genres[]
+		images[{}]
+		followers.total
+		name
+		type
+		id
+		
+tracks
+	APIrefs
+	ITEM[{}]
+		album{}
+			name
+			type
+			id
+			images[{}]
+		artists[{}]
+			name
+			type
+			id
+		name
+		type
+		id
+		
+playlists
+	APIrefs
+	ITEM[{}]
+		images[{}]
+		tracks.total
+		name
+		type
+		id
+		
+	
+			
+	
