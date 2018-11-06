@@ -35,8 +35,8 @@ export default class SearchInput extends Component {
                         {headers:{'Authorization': 'Bearer ' + this.state.token}})
                         .then(response => response.json())
                         .then(data => {
-                            console.log(data)
-                            ReactDOM.render(<ResultsDisplay typeArray={typeArray} data={data}/>, document.getElementById("type-1"))
+                            //console.log(data)
+                            ReactDOM.render(<ResultsDisplay typeArray={typeArray} data={data}/>, document.getElementById("type-2"))
                         })
                     }
                 )

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
+import AlbumClass from './AlbumClass';
 
 export default class ResultsDisplay extends Component {
     constructor(props){
@@ -11,7 +12,7 @@ export default class ResultsDisplay extends Component {
         this.albumObject = {
             items:{},
             APIrefs:{}
-        };
+        }
         this.artistObject = {
             items:{},
             APIrefs:{},
@@ -31,7 +32,6 @@ export default class ResultsDisplay extends Component {
         this.itemPlaylistCheck = this.itemPlaylistCheck.bind(this);
         this.APIrefsCheck = this.APIrefsCheck.bind(this);
     }
-
     APIrefsCheck(object){
         var APIobj = {
             previous: object.previous,
@@ -67,7 +67,6 @@ export default class ResultsDisplay extends Component {
         }
         return(artistObj)
     }
-
     itemTrackCheck(object){
         var trackObj = {}
         for(var itemIndex in object){
@@ -82,7 +81,6 @@ export default class ResultsDisplay extends Component {
         }
         return(trackObj)
     }
-
     itemPlaylistCheck(object){
         var playlistObj = {}
         for(var itemIndex in object){
@@ -100,8 +98,9 @@ export default class ResultsDisplay extends Component {
         for (var searchType in object){                 //first loop to scan through each searchType presented
             switch(searchType){
                 case (searchType = 'albums'):
-                    this.albumObject.APIrefs = this.APIrefsCheck(object[searchType])    
                     this.albumObject.items = this.itemAlbumCheck(object[searchType].items)
+                    this.albumObject.APIrefs = this.APIrefsCheck(object[searchType])
+                    ReactDOM.render(<AlbumClass albumObject={this.albumObject}/>, document.getElementById("type-1"))
                 break;
                 case (searchType = 'artists'):
                     this.artistObject.APIrefs = this.APIrefsCheck(object[searchType])    
@@ -109,7 +108,7 @@ export default class ResultsDisplay extends Component {
                 break;
                 case (searchType = 'tracks'):
                     this.trackObject.APIrefs = this.APIrefsCheck(object[searchType])
-                    this.trackObject.items = this.itemTrackCheck(object[searchType].items)    
+                    this.trackObject.items = this.itemTrackCheck(object[searchType].items)
                 break;
                 case (searchType = 'playlists'):
                     this.playlistObject.APIrefs = this.APIrefsCheck(object[searchType])
@@ -118,14 +117,12 @@ export default class ResultsDisplay extends Component {
                 default:
             }
         }
-        console.log(this.albumObject)
-        console.log(this.artistObject)
-        console.log(this.trackObject)
-        console.log(this.playlistObject)
+    }
+    componentDidMount(){
+        this.paginationAPIcall(this.props.data)
     }
     render(){
-        this.paginationAPIcall(this.props.data)
-    return(null);
+        return(null);
     }
 }
 
