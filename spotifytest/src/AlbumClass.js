@@ -4,6 +4,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 export default class AlbumClass extends Component {
     constructor(props){
         super(props);
+        this.albumDisplayArray=[]
         this.APIref = {
             previous: URL || null,
             next: URL || null,
@@ -38,21 +39,30 @@ export default class AlbumClass extends Component {
         }
         const albumResults = (
             albums.map(object => (
-                
+                    <li className="list-group-item">
+                        <img src={object.url} alt="albumImage" className="rounded"/>
+                        <li className="list-group-item">
+                            {object.nameAlbum} by {object.nameArtist}
+                        </li>
+                        
+                    </li>
             ))
-        )
+        )//                        <button type="button" className="list-group-item list-group-item-action">Album -> {object.name}</button>
         return albumResults
     }
     
     componentDidMount(){
         this.loadAPIref(this.props.albumObject.APIrefs)
-        this.loadEachItem(this.props.albumObject.items)
+        //this.loadEachItem()
     }
     
     render(){
         return(
-            {albumResults}
+            <div className="list-group">
+                {this.loadEachItem(this.props.albumObject.items)}
+            </div>
         )
     }
 }
+
 
