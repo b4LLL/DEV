@@ -6,8 +6,8 @@ export default class ResultsDisplay extends Component {
     constructor(props){
         super(props);
         this.state = {
-            typeArray:this.props.typeArray,
-            data:this.props.data,    //this should already be an object
+            token:this.props.token,
+            data:this.props.data   //this should already be an object
         };
         this.albumObject = {
             items:{},
@@ -100,7 +100,7 @@ export default class ResultsDisplay extends Component {
                 case (searchType = 'albums'):
                     this.albumObject.items = this.itemAlbumCheck(object[searchType].items)
                     this.albumObject.APIrefs = this.APIrefsCheck(object[searchType])
-                    ReactDOM.render(<AlbumClass albumObject={this.albumObject}/>, document.getElementById("type-1"))
+                    ReactDOM.render(<AlbumClass token={this.state.token} albumObject={this.albumObject}/>, document.getElementById("type-1"))
                 break;
                 case (searchType = 'artists'):
                     this.artistObject.APIrefs = this.APIrefsCheck(object[searchType])    

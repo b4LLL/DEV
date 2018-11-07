@@ -4,9 +4,12 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 export default class AlbumClass extends Component {
     constructor(props){
         super(props);
+        this.state = {
+            token:this.props.token
+        }
         this.loadEachItem = this.loadEachItem.bind(this)
         this.loadAPIref = this.loadAPIref.bind(this)
-        this.prepPlayer = this.prepPlayer.bind(this)
+        //this.prepPlayer = this.prepPlayer.bind(this)
     }
 
     loadEachItem(object){
@@ -28,7 +31,7 @@ export default class AlbumClass extends Component {
         const albumResults = (
             albums.map(object => (
                 <figure key={object.idAlbum} className="figure">
-                    <img src={object.url} alt="albumImage" className="rounded" height="128" width="128" onClick={this.prepPlayer(object.type, object.id)}/>
+                    <img src={object.url} alt="albumImage" className="rounded" height="128" width="128" />
                         <div className="align-top">{object.nameAlbum} by {object.nameArtist}</div>
                 </figure>
             ))
@@ -36,10 +39,6 @@ export default class AlbumClass extends Component {
         return albumResults
     }
     
-    prepPlayer(){
-
-    }
-
     loadAPIref(object){
         let APIarray = []
         APIarray.push({
@@ -47,10 +46,12 @@ export default class AlbumClass extends Component {
             next: object.next,
             total: object.total
         })
+
+        //add the onClick function for the button -> send the url to the search function
         const apiRefs = (
             APIarray.map(object => (
             <div key={object.total} className="btn-group p-4">
-                <button type="button" className="btn" value={object.previous} disabled={(object.previous === null) ? true : false}>
+                <button type="button" className="btn" value={object.previous} disabled={(object.previous === null) ? true : false} >
                     Previous
                 </button>
                 <button type="button" className="btn" value={object.next} disabled={(object.next === null) ? true : false}>

@@ -15,10 +15,22 @@ export default class SearchInput extends Component {
                 { id: "Track", value: "track"} ,
                 { id: "Playlist", value: "playlist"}]
         };
-        this.handleSearch = this.handleSearch.bind(this);
+        this.prepSearch = this.prepSearch.bind(this);
+        this.doSearch = this.doSearch.bind(this);
     }
-
-    handleSearch(e){
+    doSearch(text, array){
+        this.setState({query: encodeURIComponent(text.trim())}, () => {
+            fetch('https://api.spotify.com/v1/search?q=' + this.state.query + '&type=' + array.toString() + '&limit=5', 
+                {headers:{'Authorization': 'Bearer ' + this.state.token}})
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    ReactDOM.render(<ResultsDisplay token={this.state.token} data={data}/>, document.getElementById("type-1"))
+                })
+            }
+        )
+    }
+    prepSearch(e){
         let checkedCount = 0
         let typeArray = []
         if(e.key === 'Enter'){
@@ -28,18 +40,9 @@ export default class SearchInput extends Component {
                     checkedCount++
                 }
             }
-            if((checkedCount !== 0) && (e.target.value !== '')){
-                this.setState({query: encodeURIComponent(e.target.value.trim())}, () => {
-                    fetch('https://api.spotify.com/v1/search?q=' + this.state.query +'&type=' + typeArray.toString() + '&limit=5', 
-                        {headers:{'Authorization': 'Bearer ' + this.state.token}})
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log(data)
-                            ReactDOM.render(<ResultsDisplay typeArray={typeArray} data={data}/>, document.getElementById("type-1"))
-                        })
-                    }
-                )
-            } else ((e.target.value === '') 
+            if((checkedCount !== 0) && (e.target.value !== ''))
+                this.doSearch(e.target.value,typeArray)
+            else ((e.target.value === '') 
             ? alert("Please enter a Spotify search query") 
             : alert("Please select what type of search to perform"))
         }
@@ -54,14 +57,12 @@ export default class SearchInput extends Component {
             )
         ));
         const InputField = (
-            
             <div className="input-group mb-3">
                 <div className="input-group-prepend">
                     <span className="input-group-text" id="inputGroup-sizing-default">Search Spotify</span>
                 </div>
-                <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" onKeyPress={this.handleSearch}/>
+                <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" onKeyPress={this.prepSearch}/>
             </div>
-
         );
         return(
                 <div>
