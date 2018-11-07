@@ -4,21 +4,9 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 export default class AlbumClass extends Component {
     constructor(props){
         super(props);
-        this.albumDisplayArray=[]
-        this.APIref = {
-            previous: URL || null,
-            next: URL || null,
-            total: Number
-        }
         this.loadEachItem = this.loadEachItem.bind(this)
         this.loadAPIref = this.loadAPIref.bind(this)
-    }
-
-    loadAPIref(object){
-        this.APIref.previous = object.previous
-        this.APIref.next = object.next
-        this.APIref.total = object.total
-        this.albumDisplayArray.push(this.APIref)
+        this.prepPlayer = this.prepPlayer.bind(this)
     }
 
     loadEachItem(object){
@@ -39,27 +27,49 @@ export default class AlbumClass extends Component {
         }
         const albumResults = (
             albums.map(object => (
-                    <li className="list-group-item">
-                        <img src={object.url} alt="albumImage" className="rounded"/>
-                        <li className="list-group-item">
-                            {object.nameAlbum} by {object.nameArtist}
-                        </li>
-                        
-                    </li>
+                <figure key={object.idAlbum} className="figure">
+                    <img src={object.url} alt="albumImage" className="rounded" height="128" width="128" onClick={this.prepPlayer(object.type, object.id)}/>
+                        <div className="align-top">{object.nameAlbum} by {object.nameArtist}</div>
+                </figure>
             ))
-        )//                        <button type="button" className="list-group-item list-group-item-action">Album -> {object.name}</button>
+        )
         return albumResults
     }
     
-    componentDidMount(){
-        this.loadAPIref(this.props.albumObject.APIrefs)
-        //this.loadEachItem()
+    prepPlayer(){
+
     }
-    
+
+    loadAPIref(object){
+        let APIarray = []
+        APIarray.push({
+            previous: object.previous,
+            next: object.next,
+            total: object.total
+        })
+        const apiRefs = (
+            APIarray.map(object => (
+            <div key={object.total} className="btn-group p-4">
+                <button type="button" className="btn" value={object.previous} disabled={(object.previous === null) ? true : false}>
+                    Previous
+                </button>
+                <button type="button" className="btn" value={object.next} disabled={(object.next === null) ? true : false}>
+                    Next
+                </button>
+                <div>
+                    Total results: {object.total}
+                </div>
+            </div>
+            ))
+        )
+        return apiRefs
+    }    
+
     render(){
         return(
             <div className="list-group">
                 {this.loadEachItem(this.props.albumObject.items)}
+                {this.loadAPIref(this.props.albumObject.APIrefs)}
             </div>
         )
     }

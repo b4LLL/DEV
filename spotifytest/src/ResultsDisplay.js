@@ -121,6 +121,10 @@ export default class ResultsDisplay extends Component {
     componentDidMount(){
         this.paginationAPIcall(this.props.data)
     }
+    componentDidUpdate(){
+        console.log("we're updating!!")
+        this.paginationAPIcall(this.props.data)
+    }
     render(){
         return(null);
     }

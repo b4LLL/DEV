@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import queryString from 'query-string';
-import ReactDOM from 'react-dom';
 
 //
 //  Use this App as the content loader -> 
@@ -20,9 +19,8 @@ class App extends Component {
     localStorage.setItem('token', accessToken);
   }
   render() {
-    return (null)
+    return (<p>root</p>)
   }
 }
-ReactDOM.render(<App />, document.getElementById("root"))
 
 export default App;

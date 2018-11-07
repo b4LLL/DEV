@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import ResultsDisplay from './ResultsDisplay'
-import { ListGroupItem, Checkbox } from 'react-bootstrap'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 export default class SearchInput extends Component {
@@ -31,12 +30,12 @@ export default class SearchInput extends Component {
             }
             if((checkedCount !== 0) && (e.target.value !== '')){
                 this.setState({query: encodeURIComponent(e.target.value.trim())}, () => {
-                    fetch('https://api.spotify.com/v1/search?q=' + this.state.query +'&type=' + typeArray.toString() + '&limit=3', 
+                    fetch('https://api.spotify.com/v1/search?q=' + this.state.query +'&type=' + typeArray.toString() + '&limit=5', 
                         {headers:{'Authorization': 'Bearer ' + this.state.token}})
                         .then(response => response.json())
                         .then(data => {
                             console.log(data)
-                            ReactDOM.render(<ResultsDisplay typeArray={typeArray} data={data}/>, document.getElementById("type-2"))
+                            ReactDOM.render(<ResultsDisplay typeArray={typeArray} data={data}/>, document.getElementById("type-1"))
                         })
                     }
                 )
@@ -46,29 +45,29 @@ export default class SearchInput extends Component {
         }
     }
     render(){
-        let checkVal = false;
         const ListOptions = (
             this.state.SQ.map((object) => (
-                <ListGroupItem key={object.value} className="list-group">
-                    <Checkbox key={object.value.toString()} id={object.id} defaultChecked={(object.id === "Track") ? true : checkVal}/> <span>{object.id} </span>
-                </ListGroupItem>
+                <div key={object.id} className="custom-control custom-checkbox">
+                    <input type="checkbox" className="custom-control-input" id={object.id} value={object.value} defaultChecked={(object.id === "Album") ? true : false}/>
+                    <label className="custom-control-label" htmlFor={object.id}>{object.id}</label>
+                </div>
             )
         ));
         const InputField = (
+            
             <div className="input-group mb-3">
                 <div className="input-group-prepend">
                     <span className="input-group-text" id="inputGroup-sizing-default">Search Spotify</span>
                 </div>
                 <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" onKeyPress={this.handleSearch}/>
             </div>
+
         );
         return(
-            <div>
-                {InputField}
-                {ListOptions}                
-                <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DXbj9Ksq4BAdj" width="300" height="380" frameBorder ="0" allowtransparency="true" allow="encrypted-media" title="Spotify Player">Spotify Player</iframe>
-            </div>
-        );
+                <div>
+                    {InputField}
+                    {ListOptions}    
+                </div>            
+            );
     }
 }
-ReactDOM.render(<SearchInput />, document.getElementById("search"))
