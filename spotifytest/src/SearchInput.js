@@ -50,7 +50,10 @@ export default class SearchInput extends Component {
         }
     }
     checkPlayer(){
+        let iframePlayer = document.getElementsByTagName("iframe")
         console.log("Player => " + document.getElementById("spotifyPlayer").src)
+        console.log("URI => " + document.getElementById("spotifyPlayer").contentWindow.e.data)
+        
     }
     render(){
         const ListOptions = (

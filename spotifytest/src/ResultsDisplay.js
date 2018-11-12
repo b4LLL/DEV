@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import AlbumClass from './AlbumClass';
 import TrackClass from './TrackClass';
 import ArtistClass from './ArtistClass';
+import PlaylistClass from './PlaylistClass';
 export default class ResultsDisplay extends Component {
     constructor(props){
         super(props);
@@ -91,7 +92,7 @@ export default class ResultsDisplay extends Component {
                 name:object[itemIndex].name,
                 type:object[itemIndex].type,
                 id:object[itemIndex].id,
-                images:Object.values(object[itemIndex].images),
+                image: ((object[itemIndex].images.length === 0) ? "Image Missing" : (console.log("Found"),object[itemIndex].images[0].url)),
                 total:object[itemIndex].tracks.total
             }
         }
@@ -118,6 +119,7 @@ export default class ResultsDisplay extends Component {
                 case (searchType = 'playlists'):
                     this.playlistObject.APIrefs = this.APIrefsCheck(object[searchType])
                     this.playlistObject.items = this.itemPlaylistCheck(object[searchType].items)
+                    ReactDOM.render(<PlaylistClass token={this.state.token} playlistObject={this.playlistObject}/>, document.getElementById("type-4"))
                 break;
                 default:
             }
