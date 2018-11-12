@@ -9,14 +9,16 @@ export default class SearchInput extends Component {
         this.state = {
             query: '',
             token: localStorage.getItem('token'),
-            result: '', //needs to be moved to server session
+            search: [],
             SQ: [{ id: "Album", value: "album"},
                 { id: "Artist", value: "artist"},
                 { id: "Track", value: "track"} ,
-                { id: "Playlist", value: "playlist"}]
+                { id: "Playlist", value: "playlist"}],
+            target:''
         };
         this.prepSearch = this.prepSearch.bind(this);
         this.doSearch = this.doSearch.bind(this);
+        this.checkPlayer = this.checkPlayer.bind(this);
     }
     doSearch(text, array){
         this.setState({query: encodeURIComponent(text.trim())}, () => {
@@ -47,6 +49,10 @@ export default class SearchInput extends Component {
             : alert("Please select what type of search to perform"))
         }
     }
+    checkPlayer(){
+
+        console.log("Player => " + document.getElementById("spotifyPlayer").src)
+    }
     render(){
         const ListOptions = (
             this.state.SQ.map((object) => (
@@ -64,11 +70,18 @@ export default class SearchInput extends Component {
                 <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" onKeyPress={this.prepSearch}/>
             </div>
         );
+        const spotifyPlayer = (
+            <div className="text-center m-3">
+                <iframe title="spotifyPlayer" id="spotifyPlayer" src={this.props.target} width="" height="380" allowtransparency="true" allow="encrypted-media" onLoad={this.checkPlayer}></iframe>
+            </div>
+        );
+
         return(
                 <div>
                     {InputField}
-                    {ListOptions}    
-                </div>            
+                    {ListOptions}
+                    {spotifyPlayer}
+                </div>
             );
     }
 }

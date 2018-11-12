@@ -4,7 +4,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import ResultsDisplay from './ResultsDisplay'
 import SearchInput from './SearchInput';
 
-export default class AlbumClass extends Component {
+export default class TrackClass extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -28,7 +28,7 @@ export default class AlbumClass extends Component {
                 .then(response => response.json())
                 .then(data => {
                     console.log(data)
-                    ReactDOM.render(<ResultsDisplay token={this.props.token} data={data}/>, document.getElementById("type-1"))
+                    ReactDOM.render(<ResultsDisplay token={this.props.token} data={data}/>, document.getElementById("type-2"))
                 })
             }
     
@@ -100,6 +100,3 @@ export default class AlbumClass extends Component {
             </div>
         )
     }
-}
-
-
