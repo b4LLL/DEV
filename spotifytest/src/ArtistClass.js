@@ -35,27 +35,26 @@ export default class ArtistClass extends Component {
     loadEachItem(object){
         let artists = []
         for (let itemIndex in object){
-            artists.push({
+                artists.push({
                 nameArtist:   object[itemIndex].name,
                 typeArtist:   object[itemIndex].type,
                 idArtist:     object[itemIndex].id,
-                url:        object[itemIndex].images[1].url,
+                url:        object[itemIndex].image,
                 genre:      object[itemIndex].genres.toString(),
                 followers:  object[itemIndex].followers.total
             })
-            console.log(object[itemIndex].images[1].url)
         }
         const artistResults = (
             artists.map(object => (
-                <div key={object.idArtist} className="media border m-2" >
+                <div key={object.idArtist} className="media border p-1" >
                     <div className="media-left media-middle">
-                        <img src={object.url} alt="albumImage" className="rounded media-object" height="100" width="100" 
+                        <img src={object.url} alt={object.url} className="rounded media-object" height="100" width="100" 
                         onClick={()=>this.prepPlayer(object.typeArtist, object.idArtist)}/>
                     </div>
                     <div className="media-body">
-                        <p className="small"><b>Artist:</b> {object.nameArtist}</p>
-                        <p className="small"><b>Genres: </b>{object.genre}</p>
-                        <p className="small"><b>Followers: </b>{object.followers}</p>
+                        <p className="small ml-1"><b>Artist:</b> {object.nameArtist}</p>
+                        <p className="small ml-1"><b>Genres: </b>{object.genre}</p>
+                        <p className="small ml-1"><b>Followers: </b>{object.followers}</p>
                     </div>
                 </div>
             ))
@@ -90,7 +89,8 @@ export default class ArtistClass extends Component {
             ))
         )
         return apiRefs
-    }    
+    }
+   
     render(){
         return(
             <div className="list-group">

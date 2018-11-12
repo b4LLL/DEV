@@ -61,11 +61,12 @@ export default class ResultsDisplay extends Component {
                 name:object[itemIndex].name,
                 type:object[itemIndex].type,
                 id:object[itemIndex].id,
-                images:Object.values(object[itemIndex].images),
+                image: ((object[itemIndex].images.length === 0) ? "Image Missing" : (console.log("Found"),object[itemIndex].images[1].url)),
                 genres:object[itemIndex].genres,
-                followers:object[itemIndex].followers.total
+                followers:object[itemIndex].followers
             }
         }
+        console.log(artistObj)
         return(artistObj)
     }
     itemTrackCheck(object){
@@ -107,7 +108,6 @@ export default class ResultsDisplay extends Component {
                 case (searchType = 'artists'):
                     this.artistObject.APIrefs = this.APIrefsCheck(object[searchType])    
                     this.artistObject.items = this.itemArtistCheck(object[searchType].items)
-                    console.log('calling ArtistClass')
                     ReactDOM.render(<ArtistClass token={this.state.token} artistObject={this.artistObject}/>, document.getElementById("type-2"))
                 break;
                 case (searchType = 'tracks'):

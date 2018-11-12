@@ -71,7 +71,8 @@ export default class SearchInput extends Component {
         );
         const spotifyPlayer = (
             <div className="text-center m-3">
-                <iframe title="spotifyPlayer" id="spotifyPlayer" src={this.props.target} width="300" height="80" allowtransparency="true" allow="encrypted-media"  onLoad={this.checkPlayer}></iframe>
+                <iframe title="spotifyPlayer" id="spotifyPlayer" src={this.props.target} width="300" height="380" allowtransparency="true" allow="encrypted-media" 
+                onLoad={this.checkPlayer}></iframe>
             </div>
         );
 

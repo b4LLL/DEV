@@ -50,12 +50,13 @@ export default class AlbumClass extends Component {
         }
         const albumResults = (
             albums.map(object => (
-                <div key={object.idAlbum} className="media border m-2" >
+                <div key={object.idAlbum} className="media border p-1" >
                     <div className="media-left media-middle">
                         <img src={object.url} alt="albumImage" className="rounded media-object" height="100" width="100" onClick={()=>this.prepPlayer(object.typeAlbum, object.idAlbum)}/>
                     </div>
                     <div className="media-body">
-                        <p className="small"><b>Album:</b> {object.nameAlbum}</p><p className="small"><b>Artist: </b>{object.nameArtist}</p>
+                        <p className="small ml-1"><b>Album:</b> {object.nameAlbum}</p>
+                        <p className="small ml-1"><b>Artist: </b>{object.nameArtist}</p>
                     </div>
                 </div>
             ))

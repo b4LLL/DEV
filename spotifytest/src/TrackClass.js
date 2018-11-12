@@ -28,7 +28,7 @@ export default class TrackClass extends Component {
                 .then(response => response.json())
                 .then(data => {
                     console.log(data)
-                    ReactDOM.render(<ResultsDisplay token={this.props.token} data={data}/>, document.getElementById("type-2"))
+                    ReactDOM.render(<ResultsDisplay token={this.props.token} data={data}/>, document.getElementById("type-3"))
                 })
             }
     
@@ -50,12 +50,13 @@ export default class TrackClass extends Component {
         }
         const trackResults = (
             tracks.map(object => (
-                <div key={object.idTrack} className="media border m-2" >
+                <div key={object.idTrack} className="media border p-1" >
                     <div className="media-left media-middle">
                         <img src={object.url} alt="albumImage" className="rounded media-object" height="100" width="100" onClick={()=>this.prepPlayer(object.typeTrack, object.idTrack)}/>
                     </div>
                     <div className="media-body">
-                        <p className="small"><b>Album:</b> {object.nameTrack}</p><p className="small"><b>Artist: </b>{object.nameArtist}</p>
+                        <p className="small ml-1"><b>Album:</b> {object.nameTrack}</p>
+                        <p className="small ml-1"><b>Artist: </b>{object.nameArtist}</p>
                     </div>
                 </div>
             ))
