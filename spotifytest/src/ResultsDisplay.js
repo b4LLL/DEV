@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import AlbumClass from './AlbumClass';
-
+import TrackClass from './TrackClass';
+import ArtistClass from './ArtistClass';
 export default class ResultsDisplay extends Component {
     constructor(props){
         super(props);
@@ -79,6 +80,7 @@ export default class ResultsDisplay extends Component {
                 images:Object.values(object[itemIndex].album.images),
             }
         }
+        
         return(trackObj)
     }
     itemPlaylistCheck(object){
@@ -105,10 +107,13 @@ export default class ResultsDisplay extends Component {
                 case (searchType = 'artists'):
                     this.artistObject.APIrefs = this.APIrefsCheck(object[searchType])    
                     this.artistObject.items = this.itemArtistCheck(object[searchType].items)
+                    console.log('calling ArtistClass')
+                    ReactDOM.render(<ArtistClass token={this.state.token} artistObject={this.artistObject}/>, document.getElementById("type-2"))
                 break;
                 case (searchType = 'tracks'):
                     this.trackObject.APIrefs = this.APIrefsCheck(object[searchType])
                     this.trackObject.items = this.itemTrackCheck(object[searchType].items)
+                    ReactDOM.render(<TrackClass token={this.state.token} trackObject={this.trackObject}/>, document.getElementById("type-3"))
                 break;
                 case (searchType = 'playlists'):
                     this.playlistObject.APIrefs = this.APIrefsCheck(object[searchType])

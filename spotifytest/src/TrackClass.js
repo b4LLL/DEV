@@ -33,34 +33,34 @@ export default class TrackClass extends Component {
             }
     
     loadEachItem(object){
-        let albums = []
+        let tracks = []
         console.log(object)
         for (let itemIndex in object){
-            albums.push({
-                nameAlbum:   object[itemIndex].name,
-                typeAlbum:   object[itemIndex].type,
-                idAlbum:     object[itemIndex].id,
-                height:     object[itemIndex].images[1].height,
-                width:      object[itemIndex].images[1].width,
-                url:        object[itemIndex].images[1].url,
-                nameArtist:   object[itemIndex].artists[0].name,
-                typeArtist:   object[itemIndex].artists[0].type,
-                idArtist:     object[itemIndex].artists[0].id
+            tracks.push({
+                nameTrack:   object[itemIndex].name,
+                typeTrack:   object[itemIndex].type,
+                idTrack:     object[itemIndex].id,
+                height:     object[itemIndex].album.images[1].height,
+                width:      object[itemIndex].album.images[1].width,
+                url:        object[itemIndex].album.images[1].url,
+                nameArtist:   object[itemIndex].artist[0].name,
+                typeArtist:   object[itemIndex].artist[0].type,
+                idArtist:     object[itemIndex].artist[0].id
             })
         }
-        const albumResults = (
-            albums.map(object => (
-                <div key={object.idAlbum} className="media border m-2" >
+        const trackResults = (
+            tracks.map(object => (
+                <div key={object.idTrack} className="media border m-2" >
                     <div className="media-left media-middle">
-                        <img src={object.url} alt="albumImage" className="rounded media-object" height="100" width="100" onClick={()=>this.prepPlayer(object.typeAlbum, object.idAlbum)}/>
+                        <img src={object.url} alt="albumImage" className="rounded media-object" height="100" width="100" onClick={()=>this.prepPlayer(object.typeTrack, object.idTrack)}/>
                     </div>
                     <div className="media-body">
-                        <p className="small"><b>Album:</b> {object.nameAlbum}</p><p className="small"><b>Artist: </b>{object.nameArtist}</p>
+                        <p className="small"><b>Album:</b> {object.nameTrack}</p><p className="small"><b>Artist: </b>{object.nameArtist}</p>
                     </div>
                 </div>
             ))
         )
-        return albumResults
+        return trackResults
     }
     
     loadAPIref(object){
@@ -95,8 +95,10 @@ export default class TrackClass extends Component {
     render(){
         return(
             <div className="list-group">
-                {this.loadEachItem(this.props.albumObject.items)}
-                {this.loadAPIref(this.props.albumObject.APIrefs)}
+            <h5>Track results found</h5>
+                {this.loadEachItem(this.props.trackObject.items)}
+                {this.loadAPIref(this.props.trackObject.APIrefs)}
             </div>
         )
     }
+}

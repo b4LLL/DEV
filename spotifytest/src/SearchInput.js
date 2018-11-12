@@ -27,7 +27,7 @@ export default class SearchInput extends Component {
                 .then(response => response.json())
                 .then(data => {
                     console.log(data)
-                    ReactDOM.render(<ResultsDisplay token={this.state.token} data={data}/>, document.getElementById("type-1"))
+                    ReactDOM.render(<ResultsDisplay token={this.state.token} data={data}/>, document.getElementById("root"))
                 })
             }
         )
@@ -50,7 +50,6 @@ export default class SearchInput extends Component {
         }
     }
     checkPlayer(){
-
         console.log("Player => " + document.getElementById("spotifyPlayer").src)
     }
     render(){
@@ -72,12 +71,13 @@ export default class SearchInput extends Component {
         );
         const spotifyPlayer = (
             <div className="text-center m-3">
-                <iframe title="spotifyPlayer" id="spotifyPlayer" src={this.props.target} width="" height="380" allowtransparency="true" allow="encrypted-media" onLoad={this.checkPlayer}></iframe>
+                <iframe title="spotifyPlayer" id="spotifyPlayer" src={this.props.target} width="300" height="80" allowtransparency="true" allow="encrypted-media"  onLoad={this.checkPlayer}></iframe>
             </div>
         );
 
         return(
                 <div>
+                    <h2>Spotify WebApp</h2>
                     {InputField}
                     {ListOptions}
                     {spotifyPlayer}

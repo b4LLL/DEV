@@ -4,7 +4,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import ResultsDisplay from './ResultsDisplay'
 import SearchInput from './SearchInput';
 
-export default class AlbumClass extends Component {
+export default class ArtistClass extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -28,39 +28,39 @@ export default class AlbumClass extends Component {
                 .then(response => response.json())
                 .then(data => {
                     console.log(data)
-                    ReactDOM.render(<ResultsDisplay token={this.props.token} data={data}/>, document.getElementById("type-1"))
+                    ReactDOM.render(<ResultsDisplay token={this.props.token} data={data}/>, document.getElementById("type-2"))
                 })
             }
     
     loadEachItem(object){
-        let albums = []
-        console.log(object)
+        let artists = []
         for (let itemIndex in object){
-            albums.push({
-                nameAlbum:   object[itemIndex].name,
-                typeAlbum:   object[itemIndex].type,
-                idAlbum:     object[itemIndex].id,
-                height:     object[itemIndex].images[1].height,
-                width:      object[itemIndex].images[1].width,
+            artists.push({
+                nameArtist:   object[itemIndex].name,
+                typeArtist:   object[itemIndex].type,
+                idArtist:     object[itemIndex].id,
                 url:        object[itemIndex].images[1].url,
-                nameArtist:   object[itemIndex].artists[0].name,
-                typeArtist:   object[itemIndex].artists[0].type,
-                idArtist:     object[itemIndex].artists[0].id
+                genre:      object[itemIndex].genres.toString(),
+                followers:  object[itemIndex].followers.total
             })
+            console.log(object[itemIndex].images[1].url)
         }
-        const albumResults = (
-            albums.map(object => (
-                <div key={object.idAlbum} className="media border m-2" >
+        const artistResults = (
+            artists.map(object => (
+                <div key={object.idArtist} className="media border m-2" >
                     <div className="media-left media-middle">
-                        <img src={object.url} alt="albumImage" className="rounded media-object" height="100" width="100" onClick={()=>this.prepPlayer(object.typeAlbum, object.idAlbum)}/>
+                        <img src={object.url} alt="albumImage" className="rounded media-object" height="100" width="100" 
+                        onClick={()=>this.prepPlayer(object.typeArtist, object.idArtist)}/>
                     </div>
                     <div className="media-body">
-                        <p className="small"><b>Album:</b> {object.nameAlbum}</p><p className="small"><b>Artist: </b>{object.nameArtist}</p>
+                        <p className="small"><b>Artist:</b> {object.nameArtist}</p>
+                        <p className="small"><b>Genres: </b>{object.genre}</p>
+                        <p className="small"><b>Followers: </b>{object.followers}</p>
                     </div>
                 </div>
             ))
         )
-        return albumResults
+        return artistResults
     }
     
     loadAPIref(object){
@@ -94,9 +94,9 @@ export default class AlbumClass extends Component {
     render(){
         return(
             <div className="list-group">
-            <h5>Album results found</h5>
-                {this.loadEachItem(this.props.albumObject.items)}
-                {this.loadAPIref(this.props.albumObject.APIrefs)}
+                <h5>Artist results found</h5>
+                {this.loadEachItem(this.props.artistObject.items)}
+                {this.loadAPIref(this.props.artistObject.APIrefs)}
             </div>
         )
     }
